@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy.linalg import svd, qr
+from VlasovPoissonProbs import K_step, S_step, L_step
 
 # First order Lie-Trotter splitting.
 # We project the RHS of the problem onto a low rank manifold.
