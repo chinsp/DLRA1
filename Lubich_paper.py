@@ -63,16 +63,16 @@ def A(t):
     return A_mat
 
 
-def K_step(K0, V0, dA):
-    K_new = K0 + dA.dot(V0)
+def K_step(K, V, dA):
+    K_new = K + dA.dot(V)
     return K_new
 
 
-def S_step(X0, S0, V0, dA):
-    S_new = S0 - X0.T.dot(dA).dot(V0)
+def S_step(X, S, V, dA):
+    S_new = S - X.T.dot(dA).dot(V)
     return S_new
 
 
-def L_step(L0, X0, dA):
-    L_new = L0.T + dA.T.dot(X0)
+def L_step(L, X, dA):
+    L_new = L.T + dA.T.dot(X)
     return L_new
