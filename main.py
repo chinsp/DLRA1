@@ -26,11 +26,12 @@ for i in range(len(rank_list)):
     x0, s0, v0 = svd(f_init_mat)
     X0 = x0[:, :r]
     V0 = v0[:, :r]
-    S0 = np.diag(s0)[:r, :r]
+    S0 = np.diag(s0[:r])
 
     for j in range(len(time_steps) - 1):
         t = time_steps[j+1]
-        X1, S1, V1 = driver.KSL_Lie(t, X0, S0, V0)
+        dt = t - time_steps[j]
+        X1, S1, V1 = driver.KSL_Strang(t, dt, X0, S0, V0)
         # A1 = X1.dot(S1).dot(V1.T)
         A1_hat = X1.dot(S1).dot(V1.T)
         X0, S0, V0 = X1, S1, V1
@@ -49,7 +50,8 @@ for i in range(len(rank_list)):
         # print(e)
         E[j, i] = e
 
-
 error_DF = pd.DataFrame(E, columns = rank_list, index= time_steps[1:])
 error_DF.plot()
+plt.ylabel('Approximation Error')
+plt.xlabel('time')
 plt.show()
