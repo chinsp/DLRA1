@@ -12,7 +12,7 @@ rank_list = [10, 20]
 # time integration set-up
 t0 = 0
 t_end = 1
-N_t = 100
+N_t = 10
 time_steps = np.linspace(t0, t_end, N_t)
 
 # Error analysis tools

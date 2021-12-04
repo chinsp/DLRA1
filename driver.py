@@ -60,7 +60,7 @@ def LSK_Lie(t, dt, X0, S0, V0):
 
 def KSL_Strang(t, dt, X0, S0, V0):
     # Defining increment of A for time t0 ,t_1/2 and t1
-    A0, A_mid, A1 = A(t - dt), A(t - dt / 2), A(t)
+    A0, A_mid, A1 = A(t - dt), A(t - (dt/2)), A(t)
     dA_mid1, dA_mid2 = A_mid - A0, A1 - A_mid
 
     # half K-step t0 -> t_1/2
