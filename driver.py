@@ -24,7 +24,7 @@ def KSL_Lie(t, dt, X0, S0, V0):
     S_2 = S_step(X1, S_1, V0, dA)
 
     # L-step
-    L0 = S_2.dot(V0.T)
+    L0 = V0.dot(S_2.T)
     L1 = L_step(L0, X1, dA)
     # QR decomposition
     V1, S1 = qr(L1)

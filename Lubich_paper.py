@@ -74,5 +74,5 @@ def S_step(X, S, V, dA):
 
 
 def L_step(L, X, dA):
-    L_new = L.T + dA.T.dot(X)
+    L_new = L + dA.T.dot(X)
     return L_new

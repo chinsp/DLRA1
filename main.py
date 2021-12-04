@@ -7,7 +7,7 @@ import Lubich_paper
 import pandas as pd
 
 # setting a rank for the driver
-rank_list = [5, 10, 20, 30]
+rank_list = [10, 20]
 
 # time integration set-up
 t0 = 0
@@ -17,6 +17,7 @@ time_steps = np.linspace(t0, t_end, N_t)
 
 # Error analysis tools
 E = np.zeros((len(time_steps) -1, len(rank_list)))
+E_best = np.zeros((len(time_steps) -1, len(rank_list)))
 
 for i in range(len(rank_list)):
     r = rank_list[i]
@@ -24,6 +25,7 @@ for i in range(len(rank_list)):
     # Setting the initial conditons for the K-,S- and L- steps from the initial conditions of the PDE
     f_init_mat = Lubich_paper.A(t0)
     x0, s0, v0 = svd(f_init_mat)
+    v0 = v0.T
     X0 = x0[:, :r]
     V0 = v0[:, :r]
     S0 = np.diag(s0[:r])
@@ -46,12 +48,17 @@ for i in range(len(rank_list)):
         # print(np.linalg.matrix_rank(A1_hat))
 
         # local error
-        e = np.linalg.norm(A1_hat - A1_best)
+        At = Lubich_paper.A(t)
+        # e = np.linalg.norm(A1_hat - At)/ np.linalg.norm(At)
+        e = np.linalg.norm(A1_hat - At)
+        #E_best[j, i] = np.linalg.norm(A1_best - Lubich_paper.A(t))
         # print(e)
         E[j, i] = e
 
 error_DF = pd.DataFrame(E, columns = rank_list, index= time_steps[1:])
 error_DF.plot()
+#error_DF1 = pd.DataFrame(E_best, columns = rank_list, index= time_steps[1:])
+#error_DF1.plot()
 plt.ylabel('Approximation Error')
 plt.xlabel('time')
 plt.show()
