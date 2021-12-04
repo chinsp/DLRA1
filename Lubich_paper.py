@@ -39,7 +39,7 @@ A2_2 = np.zeros((n, n))
 A1_2[:10, :10] = A1_1
 A2_2[:10, :10] = A2_1
 
-epsilon = 0.001
+epsilon = 10e-6
 
 E1 = np.random.uniform(0, epsilon, (n, n))
 E2 = np.random.uniform(0, epsilon, (n, n))
